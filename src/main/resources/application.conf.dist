@@ -1,0 +1,54 @@
+scalircd {
+  # Ok, most IRCDs are overly complicated to config. Let's try and not be.
+
+  # The hostname of this server. This is mostly used for linking.
+  hostname = ohio-usa-01.mynetwork.net
+
+  # This information is used for the /admin command.
+  # In theory, the keys can be anything. We'll send them in the form:
+  # Key: value
+  administrators {
+    {
+      name = "Ricky Elrod"
+      nickname = relrod
+      email = relrod@mynetwork.net
+    }
+  }
+
+  listeners {
+    {
+      ip = "0.0.0.0"
+      port = 6667
+      servers = false # Don't let servers link on this port.
+      clients = true # Let clients connect, though.
+    }
+    {
+      ip = "0.0.0.0"
+      port = 6666
+      servers = true
+      clients = false
+    }
+  }
+
+  # Who can /oper on this server?
+  # Passwords are sha256'd.
+  opers {
+    {
+      name = "relrod"
+      password = "aec070645fe53ee3b3763059376134f058cc337247c978add178b6ccdfb0019f"
+      hostmasks = [
+        "*!*@*" # Allow from anywhere
+      ]
+    }
+  }
+
+  motd = """Welcome to MyNetwork!
+Here are our rules:
+  * Exist.
+  * Think.
+  * Be.
+  * And, lastly, live.
+"""
+
+  rules = ${scalircd.motd}
+}
