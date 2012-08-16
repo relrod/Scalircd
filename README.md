@@ -46,6 +46,11 @@ def receive {
 
 The above is a very simplified and contrived example.
 
+At this point in time, I'm thinking that at least: Channels, Users, and Servers
+can be made into actors. Actions that occur (messages that get sent to actors)
+will be encapsulated (as mentioned above) into case class instances and sent
+to the appropriate actors.
+
 # Configuration
 
 (not yet implemented)
