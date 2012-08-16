@@ -1,5 +1,6 @@
 package me.elrod.scalircd
 import akka.actor._
+import akka.util.ByteString
 import java.net.InetSocketAddress
 
 class Scalircd extends Actor {
@@ -9,10 +10,11 @@ class Scalircd extends Actor {
 
   def receive = {
     case IO.NewClient(server) => server.accept()
-    case IO.Read(rHandle, bytes) => rHandle.asSocket write bytes.compact
+    case IO.Read(rHandle, bytes) =>
+      rHandle.asSocket write ByteString(bytes.decodeString("UTF-8").toUpperCase)
   }
 }
 
 object Scalircd extends App {
-  ActorSystem().actorOf(Props(new Scalircd()))
+  ActorSystem().actorOf(Props[Scalircd])
 }
